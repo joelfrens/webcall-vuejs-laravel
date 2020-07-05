@@ -23,3 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/get-token', 'TwilioController@getToken')->name('get-token');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

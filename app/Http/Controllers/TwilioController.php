@@ -48,7 +48,7 @@ class TwilioController extends Controller
     /**
      * Generates Twilio token
      * 
-     * This function is called from the frontend Javascript call
+     * @return Json Returns a Json object with token or returns false otherwise
      */
     public function getToken()
     {   
@@ -77,7 +77,7 @@ class TwilioController extends Controller
      *
      * @return void
      */
-    public function generateTwiml()
+    public function generateVoiceTwiml()
     {
 
     }
