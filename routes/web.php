@@ -19,11 +19,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Genaral Routes
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Twilio Controller Routes
+// Request validation middleware: checkTwilioRequests
+// The request validation middleware should only be used on routes that are coming from Twilio into the web app
 Route::get('/get-token', 'TwilioController@getToken')->name('get-token');
+Route::get('/generate-voice-twiml', 'TwilioController@generateVoiceTwiml')->name('generate-voice-twiml')->middleware('checkTwilioRequests');
 
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

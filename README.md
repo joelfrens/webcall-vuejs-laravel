@@ -14,13 +14,14 @@ Set the following environment variables in your Laravel .env file
 TWILIO_APP_ID=YOUR TWILIO APP ID
 TWILIO_APP_TOKEN=YOUR TWILIO TOKEN
 TWILIO_APP_TWIML=YOUR TWILIO TWIML ID
+TWILIO_STATUS_CALLBACK_URL STATUS CALLBACK URL
 ```
 
 To get your Twilio Id and Twilio token, create a Twilio account and go here https://www.twilio.com/console
 
 To get your Twiml Id, Create a Twiml app here https://www.twilio.com/console/voice/twiml/apps
 
-# Testing
+# Unit Testing
 
 ```
 php artisan test

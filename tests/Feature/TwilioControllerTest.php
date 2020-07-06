@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Http\Controllers\TwilioController;
 use Config;
 use Twilio\Rest\Client as TClient;
+use Mockery;
 
 class TwilioControllerTest extends TestCase
 {   
@@ -51,7 +52,7 @@ class TwilioControllerTest extends TestCase
      * Checks if we get a JSON output 
      * Checks if the JSON response has a token key
      */
-    public function testGetToken()
+    public function testItGetToken()
     {
         $response = $this->get('/get-token');
 
@@ -67,15 +68,47 @@ class TwilioControllerTest extends TestCase
      * 
      * Asserts true if it can connect to Twilio REST API
      */
-    public function testCanConnectToTwilioRestAPI()
+    public function testItCanConnectToTwilioRestAPI()
     {
-        $twilioConnection = new TClient($this->id, $this->token);
-		$this->assertNotFalse($twilioConnection);
+        $connction = new TClient($this->id, $this->token);
+		$this->assertNotFalse($connction);
     }
 
-    public function testCanGenerateTwiml()
+    public function testItCanGenerateTwiml()
     {
+        $mock_search = Mockery::mock(\App\Http\Controllers\TwilioController::class);
+        $mock_search->shouldReceive('requiresCallRecordings')->once()->andReturn(true);
+    }
 
+    /**
+     * Test to check if we can make a dummy call
+     * Not a very useful test but can make cure that we can connect to the API
+     * 
+     * This test requires test Account Sid and Token. It will not work with the live Account Sid and Token
+     * 
+     * Also, it only works with magic numbers provided by Twilio
+     */
+    public function testItCanMakeADummyCall()
+    {
+        // Setup test credentials
+		$testAccountSid = "ACb637027449cd4f2816df0e9a0cf1c177";
+		$testAccountToken = "62b26e23fa6dfc3cd72d338fa168bd3f";
+		$connction = new TClient($testAccountSid, $testAccountToken);
+
+		$call = $connction->calls
+			->create(
+                "+441234567889", // to Magic Phone Number
+				"+15005550006", // from Magic Phone Number
+				array("url" => "http://demo.twilio.com/docs/voice.xml")
+			);
+
+		$this->assertNotFalse($call->sid);
+		$this->stringContains($call->sid, $call->subresourceUris["recordings"]);
+
+		// Test if the response contains a recording location
+		$expectedRecordingLocation = "/2010-04-01/Accounts/".$testAccountSid."/Calls/".$call->sid."/Recordings.json";
+		$actualRecordingLocation = $call->subresourceUris["recordings"];
+		$this->assertEquals($expectedRecordingLocation, $actualRecordingLocation);
     }
     
 }
