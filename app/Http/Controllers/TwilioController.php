@@ -81,6 +81,7 @@ class TwilioController extends Controller
     {   
         $recording = false;
         $recordingType = false;
+        $statusCallback = false;
 
         // Is recording required
         $recording = $this->requiresCallRecordings($request);
@@ -89,19 +90,25 @@ class TwilioController extends Controller
             // Get recording type
             $recordingType = $this->getRecordingType($request);
         }
+
+        $statusCallback = $this->requiresStatusCallback();
+
+        if ($statusCallback) {
+            // Get status callback Url
+            $statusCallbackUrl = env('TWILIO_STATUS_CALLBACK_URL');
+
+            // Get status Callback Events
+            $statusCallbackEvents = $this->getStatusCallbackEvents();
+
+            // Get status Callback Method
+            $statusCallbackMethod = $this->getStatusCallbackMethod();
+
+            // Answer on bridge 
+            // https://www.twilio.com/docs/voice/twiml/dial#answeronbridge
+            $answerOnBridge = $this->getAnswerOnBridgeOption();
+        }
         
-        // Get status callback Url
-        $statusCallbackUrl = env('TWILIO_STATUS_CALLBACK_URL');
 
-        // Get status Callback Events
-        $statusCallbackEvents = $this->getStatusCallbackEvents();
-
-        // Get status Callback Method
-        $statusCallbackMethod = $this->getStatusCallbackMethod();
-
-        // Answer on bridge 
-        // https://www.twilio.com/docs/voice/twiml/dial#answeronbridge
-        $answerOnBridge = $this->getAnswerOnBridgeOption();
     }
     
     /**
@@ -153,6 +160,18 @@ class TwilioController extends Controller
         $recordingType = "record-from-answer-dual";
 
         return $recordingType;
+    }
+
+    /**
+     * Check if it requires status callback
+     * 
+     * $return bool
+     */
+    private function requiresStatusCallback()
+    {
+        $requiresStatusCallback = true;
+
+        return $requiresStatusCallback;
     }
 
     /**
