@@ -91,8 +91,8 @@ class TwilioControllerTest extends TestCase
     public function testItCanMakeADummyCall()
     {
         // Setup test credentials
-		$testAccountSid = "ACb637027449cd4f2816df0e9a0cf1c177";
-		$testAccountToken = "62b26e23fa6dfc3cd72d338fa168bd3f";
+		$testAccountSid = "xxx";
+		$testAccountToken = "xxx";
 		$connction = new TClient($testAccountSid, $testAccountToken);
 
 		$call = $connction->calls
