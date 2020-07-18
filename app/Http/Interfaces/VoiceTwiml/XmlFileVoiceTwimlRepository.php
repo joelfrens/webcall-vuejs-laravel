@@ -13,7 +13,7 @@ Class XmlFileVoiceTwimlRepository implements VoiceTwimlRepository {
 	 */
 	public function generateTwiml(Request $request)
 	{
-		
+		// Get the twiml from an xml file
 	}
 
 }
