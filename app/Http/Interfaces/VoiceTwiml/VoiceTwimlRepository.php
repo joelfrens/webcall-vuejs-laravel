@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Intefaces\VoiceTwiml;
+namespace App\Http\Interfaces\VoiceTwiml;
 
 /**
  * Interface to generate the Voice Twiml XML response
@@ -15,6 +15,6 @@ interface VoiceTwimlRepository {
 	 * 
 	 * @return String Returns a valid Twilio Markup string. 
 	 */
-	public function generateTwiml(Request $request);
+	public function generateTwiml(\Illuminate\Http\Request $request);
 
 }

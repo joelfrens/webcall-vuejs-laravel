@@ -77,9 +77,14 @@ class TwilioController extends Controller
      *
      * @return void
      */
-    public function generateVoiceTwiml($request)
+    public function generateVoiceTwiml()
     {   
+        //var_dump($_REQUEST);exit;
         $twimlResponse = '';
+        //TODO remove the request object
+        $request = array("From" => "32523585", "To" => "35252");
+        $voiceTwiml = new \App\Http\Interfaces\VoiceTwiml\DefaultVoiceTwimlRepository();
+        $twimlResponse = $voiceTwiml->generateTwiml($request);
 
         // Call the implemented class
 

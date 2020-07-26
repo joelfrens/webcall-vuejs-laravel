@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Intefaces\VoiceTwiml;
+namespace App\Http\Interfaces\VoiceTwiml;
 
 use Twilio\TwiML\VoiceResponse;
 /**
@@ -12,13 +12,19 @@ Class DefaultVoiceTwimlRepository implements VoiceTwimlRepository {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function generateTwiml(Request $request)
+	public function generateTwiml($request)
 	{	
-		$toPhone ;
-		$recording = false;
+        $recording = false;
         $recordingType = false;
-		$statusCallback = false;
-		$response = '';
+        $statusCallback = false;
+        $dialOptions = array();
+        $callBackOptions = array();
+        $eventCallbackOptions = array(); //TODO
+        $response = '';
+        
+        $calledId = env('TWILIO_CALLER_ID');
+        $dialOptions["calledId"] = $calledId;
+        $toPhoneNumber = ""; //The number to be called
 
 		$response = new VoiceResponse();
 
@@ -28,6 +34,7 @@ Class DefaultVoiceTwimlRepository implements VoiceTwimlRepository {
         if ($recording) {
             // Get recording type
             $recordingType = $this->getRecordingType($request);
+            $dialOptions["record"] = $recordingType;
         }
 
         $statusCallback = $this->requiresStatusCallback();
@@ -35,19 +42,30 @@ Class DefaultVoiceTwimlRepository implements VoiceTwimlRepository {
         if ($statusCallback) {
             // Get status callback Url
             $statusCallbackUrl = env('TWILIO_STATUS_CALLBACK_URL');
+            $callBackOptions["statusCallback"] = $statusCallbackUrl;
 
             // Get status Callback Events
             $statusCallbackEvents = $this->getStatusCallbackEvents();
+            $callBackOptions["statusCallbackEvent"] = $statusCallbackEvents;
 
             // Get status Callback Method
             $statusCallbackMethod = $this->getStatusCallbackMethod();
+            $callBackOptions["statusCallbackMethod"] = $statusCallbackMethod;
+        }
 
-            // Answer on bridge 
-            // https://www.twilio.com/docs/voice/twiml/dial#answeronbridge
-            $answerOnBridge = $this->getAnswerOnBridgeOption();
-		}
-		
-		
+        // Answer on bridge 
+        // https://www.twilio.com/docs/voice/twiml/dial#answeronbridge
+        $answerOnBridge = $this->getAnswerOnBridgeOption();
+        if ($answerOnBridge) {
+            $dialOptions["answerOnBridge"] = $answerOnBridge;
+        }
+        
+        // Generate the Twiml
+        $response = new VoiceResponse();
+        $dial = $response->dial('', $dialOptions);
+        $dial->number($toPhoneNumber, $callBackOptions);
+
+        return $response;	
 	}
 
 	/**

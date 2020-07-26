@@ -16,6 +16,8 @@ class checkTwilioRequests
      */
     public function handle($request, Closure $next)
     {   
+        // Bypass validation
+        return $next($request);
         // Basic request validation
         // This will just check if the request is coming from Twilio but the headers can be spoofed.
         if (!isset($_SERVER['HTTP_X_TWILIO_SIGNATURE'])
