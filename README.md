@@ -9,12 +9,17 @@ The app is built using the following Frameworks
 - VueJs 
 - Twilio PHP SDK https://github.com/twilio/twilio-php
 
-Set the following environment variables in your Laravel .env file
+Set the following environment variables in your Laravel .env file (Rename .env.example to .env and make the necessary changes)
+
+The test credentials (TWILIO_TEST_SID & TWILIO_TEST_AUTHTOKEN) can be found here https://www.twilio.com/console/project/settings
 ```
 TWILIO_APP_ID=YOUR TWILIO APP ID
 TWILIO_APP_TOKEN=YOUR TWILIO TOKEN
 TWILIO_APP_TWIML=YOUR TWILIO TWIML ID
 TWILIO_STATUS_CALLBACK_URL STATUS CALLBACK URL
+
+TWILIO_TEST_SID
+TWILIO_TEST_AUTHTOKEN
 ```
 
 To get your Twilio Id and Twilio token, create a Twilio account and go here https://www.twilio.com/console
