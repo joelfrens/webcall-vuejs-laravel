@@ -15,6 +15,11 @@ class DefaultVoiceTwimlRepositoryTest extends TestCase
      */
     public function testItCanGenerateDefaultTwiml()
     {
+        $request = array("From" => "32523585", "To" => "35252");
+        $voiceTwiml = new \App\Http\Interfaces\VoiceTwiml\DefaultVoiceTwimlRepository();
+        $twimlResponse = $voiceTwiml->generateTwiml($request);
+
+        $this->assertInstanceOf('Twilio\TwiML\VoiceResponse', $twimlResponse);
         
     }
 }

@@ -74,12 +74,6 @@ class TwilioControllerTest extends TestCase
 		$this->assertNotFalse($connction);
     }
 
-    public function testItCanGenerateTwiml()
-    {
-        $mock_search = Mockery::mock(\App\Http\Controllers\TwilioController::class);
-        $mock_search->shouldReceive('requiresCallRecordings')->once()->andReturn(true);
-    }
-
     /**
      * Test to check if we can make a dummy call
      * Not a very useful test but can make cure that we can connect to the API
@@ -91,8 +85,8 @@ class TwilioControllerTest extends TestCase
     public function testItCanMakeADummyCall()
     {
         // Setup test credentials
-		$testAccountSid = "xxx";
-		$testAccountToken = "xxx";
+		$testAccountSid = env('TWILIO_TEST_SID');
+		$testAccountToken = env('TWILIO_TEST_AUTHTOKEN');
 		$connction = new TClient($testAccountSid, $testAccountToken);
 
 		$call = $connction->calls
