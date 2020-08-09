@@ -4,7 +4,7 @@ namespace App\Http\Interfaces\VoiceTwiml;
 /**
  * Interface to generate the Voice Twiml XML response
  */
-interface VoiceTwimlRepository {
+interface VoiceTwimlInterface {
 
 	/**
 	 * Generates valid Twiml (Twilio Markup Language)

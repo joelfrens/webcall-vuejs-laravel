@@ -6,7 +6,7 @@ namespace App\Http\Intefaces\VoiceTwiml;
  * 
  * This will generate a Twiml instruction from an XML file
  */
-Class XmlFileVoiceTwimlRepository implements VoiceTwimlRepository {
+Class XmlFileVoiceTwiml implements VoiceTwimlInterface {
 
 	/**
 	 * {@inheritdoc}

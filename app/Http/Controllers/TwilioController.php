@@ -83,7 +83,7 @@ class TwilioController extends Controller
         $twimlResponse = '';
         //TODO remove the request object
         $request = array("From" => "32523585", "To" => "35252");
-        $voiceTwiml = new \App\Http\Interfaces\VoiceTwiml\DefaultVoiceTwimlRepository();
+        $voiceTwiml = new \App\Http\Interfaces\VoiceTwiml\DefaultVoiceTwiml();
         $twimlResponse = $voiceTwiml->generateTwiml($request);
 
         // Call the implemented class

@@ -6,7 +6,7 @@ namespace App\Http\Intefaces\VoiceTwiml;
  * 
  * This will generate a Twiml instruction from the database tables
  */
-Class DatabaseVoiceTwimlRepository implements VoiceTwimlRepository {
+Class DatabaseVoiceTwiml implements VoiceTwimlInterface {
 
 	/**
 	 * {@inheritdoc}

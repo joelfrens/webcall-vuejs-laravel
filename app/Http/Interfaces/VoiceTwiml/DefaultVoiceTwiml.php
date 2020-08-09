@@ -7,7 +7,7 @@ use Twilio\TwiML\VoiceResponse;
  * 
  * This will generate a basic Twiml instruction to make a call
  */
-Class DefaultVoiceTwimlRepository implements VoiceTwimlRepository {
+Class DefaultVoiceTwiml implements VoiceTwimlInterface {
 
 	/**
 	 * {@inheritdoc}
