@@ -5,7 +5,7 @@ namespace App\Http\Intefaces\Call;
  * Implements the make call and hangup functionality
  * 
  */
-Class DefaultCall implements VoiceTwimlInterface {
+Class DefaultCall implements CallInterface {
 
 	/**
 	 * {@inheritdoc}
