@@ -12,7 +12,7 @@ Class DefaultCall implements VoiceTwimlInterface {
 	 */
 	public function call(Request $request)
 	{
-		
+		// Implement this when a call is started
 	}
 
 	/**
@@ -20,7 +20,7 @@ Class DefaultCall implements VoiceTwimlInterface {
 	 */
 	public function hangup(Request $request)
 	{
-		
+		// Implement this when the call is ended
 	}
 
 }
